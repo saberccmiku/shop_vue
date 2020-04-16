@@ -45,11 +45,11 @@ export default {
       loginFormRules: {
         username: [
           { required: true, message: '请输入登录账号', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 5, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 5, message: '长度在 6 到 8 个字符', trigger: 'blur' }
         ]
       }
     };
@@ -61,6 +61,12 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(validate => {
         console.log(validate);
+        const result = this.$http.get('/api/v3/user/getList', {
+          params: {
+            type: 1, status: 2, pageNum: 1, pageSize: 20
+          }
+        });
+        console.log(result);
       })
     }
   }
